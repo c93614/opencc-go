@@ -55,7 +55,7 @@ func (c *Converter) Convert(input []byte) []byte {
 	defer C.free(unsafe.Pointer(ptr))
 
 	cInput := C.CBytes(input)
-	defer C.free(cInput)
+	defer C.free(unsafe.Pointer(cInput))
 
 	size := C.opencc_convert_utf8_to_buffer(c.ptr,
 		(*C.char)(cInput), C.size_t(len(input)), (*C.char)(ptr))
