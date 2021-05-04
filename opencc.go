@@ -28,17 +28,17 @@ func NewConverter(configFileName string) (*Converter, error) {
 	return &Converter{ptr: ptr}, nil
 }
 
-/*
-func (c *Converter) Convert(input string) string {
-    cInput := C.CString(input)
-    defer C.free(unsafe.Pointer(cInput))
+func (c *Converter) ConvertString(input string) string {
+	cInput := C.CString(input)
+	defer C.free(unsafe.Pointer(cInput))
 
-    x := C.opencc_convert_utf8(c.ptr, cInput, C.size_t(len(input)))
-    defer C.opencc_convert_utf8_free(x)
+	cOutput := C.opencc_convert_utf8(c.ptr, cInput, C.size_t(len(input)))
+	defer C.opencc_convert_utf8_free(cOutput)
 
-    return C.GoString(x)
+	return C.GoString(cOutput)
 }
 
+/*
 func (c *Converter) ConvertBytes(input []byte) {
     x := C.opencc_convert_utf8(c.ptr, (*C.char)(unsafe.Pointer(&input[0])), C.size_t(len(input)))
     defer C.opencc_convert_utf8_free(x)
