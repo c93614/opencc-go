@@ -1,0 +1,1 @@
+module "github.com/c93614/opencc-go"
